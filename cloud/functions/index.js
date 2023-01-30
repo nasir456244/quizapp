@@ -7,7 +7,7 @@ const quizCache = new LRU({max: 200, ttl:31536000});
 const cors = require("cors")
 const creds = require('./creds.json')
 
-app.use(cors({origin: ["http://localhost:3001"]}))
+app.use(cors({origin: ["https://quizapp-nine-xi.vercel.app"]}))
 
 
 if (!admin.apps.length) {
