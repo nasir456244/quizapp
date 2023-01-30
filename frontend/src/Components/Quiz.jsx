@@ -14,14 +14,17 @@ const Quiz = () => {
     const [score, setScore] = useState(0) 
     const [showAnswer, setShowAnswer] = useState(false)
     const [reset, setReset] = useState(false)
+    const [Loading, setLoading] = useState(false);
 
 
   useEffect(() => {
     const fetchQuizes = async () => {
+      setLoading(true)
       const response = await fetch(`https://us-central1-collect-brisbane.cloudfunctions.net/expressApi${location?.pathname}`);
       const quizes = await response.json();
       setReset(false)
       setQuizes(quizes)
+      setLoading(false)
     }
     fetchQuizes() 
   
@@ -78,12 +81,13 @@ const Quiz = () => {
             </div>
     
         :
-        
+        Loading ? <p className='loading'>Loading...</p>
+          :
             <div className='quizcontainer'>
                 <p className='question'>{quizes[currentIndex]?.question}</p>
                 {quizes[currentIndex]?.answers?.map((answer) => (
-                <p key={answer} className={`${currentIndex < answers?.length && answers?.includes(answer) && 'prevAns'} ${selected === answer && "selected"} options`} onClick={() => setSelected(answer)}>{answer}</p>
-                ))}
+                  <p key={answer} className={`${currentIndex < answers?.length && answers?.includes(answer) && 'prevAns'} ${selected === answer && "selected"} options`} onClick={() => setSelected(answer)}>{answer}</p>
+                  ))}
                 <div className='buttons'>
                     {currentIndex > 0 && <button className='button' onClick={() => currentIndex > 0 && setCurrentIndex((prev) => prev - 1)}>Prev</button>}
                     <button className='button' onClick={handleNext}>
@@ -91,7 +95,7 @@ const Quiz = () => {
                     </button>
                 </div>
             </div>
-        }
+      }
         
       </div>
       
