@@ -1,0 +1,43 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  height: 100vh;
+}
+
+
+.Container {
+  display: grid; 
+  grid-template-columns: repeat(3, minmax(0, 1fr)); 
+  gap: 10px;
+}
+
+.child {
+  background-color: black;
+  text-align: center;
+  cursor: pointer;
+  border: solid 2px;
+  border-color: white;
+  color: white;
+  font-size: 30px;
+  padding-inline: 30px;
+  border-radius: 10px;
+  transition-delay: 150ms; 
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform; 
+  transition-duration: 300ms; 
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); 
+  text-decoration: none;
+}
+.child:hover {
+  border-color: #22d3ee;
+  color: #22d3ee;
+}
+
+
+@media (max-width: 640px) { 
+  .Container {
+    grid-template-columns: repeat(1, minmax(0, 1fr)); 
+  }
+ }
