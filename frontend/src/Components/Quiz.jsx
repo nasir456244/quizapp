@@ -86,7 +86,7 @@ const Quiz = () => {
             <div className='quizcontainer'>
                 <p className='question'>{quizes[currentIndex]?.question}</p>
                 {quizes[currentIndex]?.answers?.map((answer) => (
-                  <p key={answer} className={`${currentIndex < answers?.length && answers?.includes(answer) && 'prevAns'} ${selected === answer && "selected"} options`} onClick={() => setSelected(answer)}>{answer}</p>
+                  <p key={answer} className={`${currentIndex < answers?.length && answers[currentIndex] === answer && 'prevAns'} ${selected === answer && "selected"} options`} onClick={() => setSelected(answer)}>{answer}</p>
                   ))}
                 <div className='buttons'>
                     {currentIndex > 0 && <button className='button' onClick={() => currentIndex > 0 && setCurrentIndex((prev) => prev - 1)}>Prev</button>}
