@@ -2,8 +2,6 @@ const functions = require("firebase-functions");
 const express = require("express");
 const app = express();
 const admin = require("firebase-admin");
-const LRU = require('lru-cache');
-const quizCache = new LRU({max: 200, ttl:31536000});
 const cors = require("cors")
 const creds = require('./creds.json')
 
@@ -17,58 +15,32 @@ if (!admin.apps.length) {
 }
 
 
+const getCollection = async (type) => {
+    const db = admin.firestore();
+    const snapshot = await db.collection(type).get()
+    const quiz = snapshot.docs?.map((doc) => doc?.data())
+    return quiz
+}
+
 app.get('/', (req,res) => {
     res.status(200).send("Server is running succesfully")
 })
 
 
-
 app.get('/english', async (req,res) => {
-    const data = quizCache.get('english');
-    if (data) {
-        return res.status(200).json(data);
-    }
-
-    const db = admin.firestore();
-    const snapshot = await db.collection("english").get()
-    const quiz = snapshot.docs?.map((doc) => doc?.data())
-
-    quizCache.set('english', quiz);
-
+    const quiz = await getCollection("english")
     res.status(200).json(quiz)
 });
 
 
-
-
 app.get('/math', async (req,res) => {
-    const data = quizCache.get('math');
-    if (data) {
-        return res.status(200).json(data);
-    }
-
-    const db = admin.firestore();
-    const snapshot = await db.collection("math").get()
-    const quiz = snapshot.docs?.map((doc) => doc?.data())
-
-    quizCache.set('math', quiz);
-
+    const quiz = await getCollection("math")
     res.status(200).json(quiz)
 });
 
 
 app.get('/science', async (req,res) => {
-    const data = quizCache.get('science');
-    if (data) {
-        return res.status(200).json(data);
-    }
-
-    const db = admin.firestore();
-    const snapshot = await db.collection("science").get()
-    const quiz = snapshot.docs?.map((doc) => doc?.data())
-
-    quizCache.set('science', quiz);
-
+    const quiz = await getCollection("science")
     res.status(200).json(quiz)
 });
 
