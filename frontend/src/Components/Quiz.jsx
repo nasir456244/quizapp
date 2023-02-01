@@ -13,7 +13,6 @@ const Quiz = () => {
     const [answers, setAnswers] = useState([])
     const [score, setScore] = useState(0) 
     const [showAnswer, setShowAnswer] = useState(false)
-    const [reset, setReset] = useState(false)
     const [Loading, setLoading] = useState(false);
 
 
@@ -22,13 +21,12 @@ const Quiz = () => {
       setLoading(true)
       const response = await fetch(`https://us-central1-collect-brisbane.cloudfunctions.net/expressApi${location?.pathname}`);
       const quizes = await response.json();
-      setReset(false)
       setQuizes(quizes)
       setLoading(false)
     }
     fetchQuizes() 
   
-  },[reset])
+  },[])
 
 
 
@@ -70,7 +68,7 @@ const Quiz = () => {
                 <p className='score'>{score + "/" + quizes?.length}</p>
                 <div className='resetContainer'>
 
-                <button className='button' onClick={() =>{setShowAnswer(false); setReset(true)}}>
+                <button className='button' onClick={() =>setShowAnswer(false)}>
                         Reset
                 </button>
                 <p>OR</p>

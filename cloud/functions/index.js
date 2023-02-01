@@ -5,7 +5,7 @@ const admin = require("firebase-admin");
 const cors = require("cors")
 const creds = require('./creds.json')
 
-app.use(cors({origin: ["https://quizapp-nine-xi.vercel.app"]}))
+app.use(cors({origin: ["https://quizapp-nine-xi.vercel.app", "http://localhost:3000"]}))
 
 
 if (!admin.apps.length) {
