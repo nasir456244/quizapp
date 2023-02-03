@@ -68,7 +68,7 @@ const Quiz = () => {
                 <p className='score'>{score + "/" + quizes?.length}</p>
                 <div className='resetContainer'>
 
-                <button className='button' onClick={() =>setShowAnswer(false)}>
+                <button className='button' onClick={() =>{setScore(0);setShowAnswer(false)}}>
                         Reset
                 </button>
                 <p>OR</p>
